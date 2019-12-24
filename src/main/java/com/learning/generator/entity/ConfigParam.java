@@ -1,10 +1,11 @@
 package com.learning.generator.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "config_param")
-public class ConfigParam {
+public class ConfigParam implements Serializable {
     /**
      * 参数名称
      */
@@ -51,6 +52,8 @@ public class ConfigParam {
      */
     @Column(name = "gmt_modified")
     private Date gmtModified;
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 获取参数名称
@@ -194,5 +197,24 @@ public class ConfigParam {
      */
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", paramName=").append(paramName);
+        sb.append(", paramValue=").append(paramValue);
+        sb.append(", valueType=").append(valueType);
+        sb.append(", description=").append(description);
+        sb.append(", module=").append(module);
+        sb.append(", cacheRegion=").append(cacheRegion);
+        sb.append(", gmtCreate=").append(gmtCreate);
+        sb.append(", gmtModified=").append(gmtModified);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
     }
 }

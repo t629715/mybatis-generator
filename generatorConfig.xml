@@ -9,10 +9,57 @@
 		<property name="beginningDelimiter" value="`" />
 		<property name="endingDelimiter" value="`" />
 
-<!--		该配置自定义继承 Mapper接口-->
+		<!-- 生成的Java文件的编码 -->
+		<property name="javaFileEncoding" value="UTF-8" />
+		<!-- 格式化java代码 -->
+		<property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
+		<!-- JavaBean 实现 序列化 接口 -->
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+		<!-- genenat entity时,生成toString -->
+		<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+		<!-- 自定义物理分页  可生成支持Mysql数据的limit  不支持Oracle -->
+		<!--<plugin type="org.mybatis.generator.plugins.page.PaginationPlugin" />-->
+		<!-- 自定义查询指定字段  -->
+		<!--<plugin type="org.mybatis.generator.plugins.field.FieldsPlugin" />-->
+		<!-- 开启支持内存分页   可生成 支持内存分布的方法及参数
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+        -->
+		<!-- generate entity时，生成hashcode和equals方法
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+         -->
+		<!-- 此处是将Example改名为Criteria 当然 想改成什么都行~    -->
+		<!--<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">-->
+		<!--<property name="searchString" value="Example$" />-->
+		<!--<!– 替换后  -->
+		<!--<property name="replaceString" value="Criteria" />    -->
+		<!--–>-->
+		<!--<property name="replaceString" value="Query" />-->
+		<!--</plugin>-->
+		<!-- 此处是将UserMapper.xml改名为UserDao.xml 当然 想改成什么都行~ -->
+		<!--<plugin type="org.mybatis.generator.plugins.rename.RenameSqlMapperPlugin">-->
+		<!--<property name="searchString" value="Mapper" />-->
+		<!--<property name="replaceString" value="Dao" />-->
+		<!--</plugin>-->
+
+		<!--<!– 此处是将UserMapper改名为UserDao 接口 当然 想改成什么都行~  –>-->
+		<!--<plugin type="org.mybatis.generator.plugins.rename.RenameJavaMapperPlugin">-->
+		<!--<property name="searchString" value="Mapper$" />-->
+		<!--<property name="replaceString" value="Dao" />-->
+		<!--</plugin>-->
+
+
+
+		<!--		该配置自定义继承 Mapper接口-->
 		<plugin type="tk.mybatis.mapper.generator.MapperPlugin">
 			<property name="mappers" value="com.learning.generator.MyMapper" />
 		</plugin>
+		<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true"/>
+			<!--生成的注释包含时间戳-->
+			<property name="suppressDate" value="true"/>
+		</commentGenerator>
+
 
 		<!-- mysql -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://47.96.24.165:3306/goldbuy"
@@ -22,11 +69,21 @@
 		<!-- <jdbcConnection driverClass="oracle.jdbc.OracleDriver" connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:orcl"
 			userId="SCOTT" password="tiger"> </jdbcConnection> -->
 
+		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
+            NUMERIC 类型解析为java.math.BigDecimal -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="true"/>
+		</javaTypeResolver>
 
 
 		<!-- 对于生成的pojo所在包 -->
 		<javaModelGenerator targetPackage="com.learning.generator.entity"
-			targetProject="src/main/java" />
+			targetProject="src/main/java" >
+<!--			&lt;!&ndash; enableSubPackages:是否让schema作为包的后缀 &ndash;&gt;-->
+<!--			<property name="enableSubPackages" value="true"/>-->
+<!--			&lt;!&ndash; 从数据库返回的值被清理前后的空格 &ndash;&gt;-->
+<!--			<property name="trimStrings" value="true"/>-->
+		</javaModelGenerator>
 
 		<!-- 对于生成的mapper所在目录 -->
 		<sqlMapGenerator targetPackage="com.learning.generator.mapping" targetProject="src/main/java" />
